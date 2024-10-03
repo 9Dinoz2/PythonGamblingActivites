@@ -29,7 +29,7 @@ horse_data = {
     "Gale": 30,
     "Tempest": 25,
     "Starlight": 35,
-    "Dreamer": 50,
+    "Asriel Dreamer": 100,
     "Prowler": 20,
     "Striker": 45,
     "Falcon": 55,
