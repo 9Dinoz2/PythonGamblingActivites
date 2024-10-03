@@ -52,6 +52,15 @@ def display_hand(name, hand, hidden=False):
     else:
         print(f"{name}'s hand: {hand}, Total: {calculate_total(hand)}")
 
+# Dealer's strategy for choosing the Ace value
+def dealer_ace_strategy(dealer_hand):
+    total = calculate_total(dealer_hand)
+    if total <= 10:  # If total is 10 or less, treat Ace as 11
+        card_values['A'] = 11
+    else:
+        card_values['A'] = 1  # Otherwise treat Ace as 1
+    return total
+
 # BlackJack Game Function
 def blackjack():
     deck = create_deck()
@@ -120,11 +129,17 @@ def blackjack():
 
         # Dealer's turn
         display_hand("Dealer", dealer_hand, hidden=False)
-        while calculate_total(dealer_hand) < 17:
+        dealer_total = calculate_total(dealer_hand)
+        
+        # Dealer's logic with Ace handling
+        if 'A' in [card[0] for card in dealer_hand]:
+            dealer_ace_strategy(dealer_hand)
+
+        while dealer_total < 17:
             dealer_hand.append(deal_card(deck))
             display_hand("Dealer", dealer_hand)
+            dealer_total = calculate_total(dealer_hand)
 
-        dealer_total = calculate_total(dealer_hand)
         player_total = calculate_total(player_hand)
 
         # Determine results
